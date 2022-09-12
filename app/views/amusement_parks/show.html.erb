@@ -1,0 +1,16 @@
+<h1>Amusement Park Show Page</h1>
+
+<h2><%= @park.name %></h2>
+
+<p>Admission Cost: <%= @park.admission_cost %></p>
+
+<h3>Rides</h3>
+<ol>
+  <% @park.rides_alpha.each do |ride| %>
+    <li>
+      <p><%= ride.name %></p>
+    </li>
+  <% end %>
+</ol>
+
+<p>Average Thrill Rating: <%= @park.avg_thrill %></p>
