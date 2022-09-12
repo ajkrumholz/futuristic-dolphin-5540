@@ -10,3 +10,10 @@
     <li><%= ride.name %></li>
   <% end %>
 </ul>
+
+<h3>Add a Ride</h3>
+<%= form_with url: "/mechanics/#{@mechanic.id}", method: :patch do |f| %>
+  <%= f.label :ride_id, "Ride ID" %>
+  <%= f.text_field :ride_id %>
+  <%= f.submit "Submit" %>
+<% end %>

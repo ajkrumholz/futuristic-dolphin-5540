@@ -27,7 +27,7 @@ RSpec.describe Mechanic do
       end
     end
 
-    describe 'open rides' do
+    describe 'open_rides' do
       it 'returns an array of rides that are open, sorted by thrill' do
         garth.rides << hurler
         garth.rides << scrambler
@@ -35,6 +35,15 @@ RSpec.describe Mechanic do
         garth.rides << log_flume
 
         expect(garth.open_rides).to eq([log_flume, hurler, scrambler])
+      end
+    end
+
+    describe 'add_ride' do
+      it 'adds a ride to the mechanics ride list' do
+        garth.rides << hurler
+        garth.rides << scrambler
+        garth.add_ride(ferris.id)
+        expect(garth.rides).to eq([hurler, scrambler, ferris])
       end
     end
   end

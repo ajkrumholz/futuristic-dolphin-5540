@@ -20,11 +20,6 @@ RSpec.describe "Mechanic show page" do
     garth.rides << log_flume
     visit "/mechanics/#{garth.id}"
   end
-# As a user,
-# When I visit a mechanic show page
-# I see their name, years of experience, and the names of rides they’re working on
-# And I only see rides that are open
-# And the rides are listed by thrill rating in descending order (most thrills first)
 
   describe 'when I visit a mechanic show page' do
     describe 'I see name, years of experience, and rides they work on' do
@@ -35,7 +30,7 @@ RSpec.describe "Mechanic show page" do
         expect(page).to_not have_content(bono.years_experience)
       end
 
-      it 'lists rides the mechanic works on' do
+      it 'lists open rides the mechanic works on by thrill' do
         expect(page).to have_content(hurler.name)
         expect(page).to have_content(scrambler.name)
         expect(page).to have_content(log_flume.name)
@@ -43,6 +38,25 @@ RSpec.describe "Mechanic show page" do
         expect(hurler.name).to appear_before(scrambler.name)
         expect(page).to_not have_content(ferris.name)
         expect(page).to_not have_content(brain_wagon.name)
+      end
+    end
+
+    describe 'adding a ride to a mechanics workload' do
+      # As a user,
+      # When I go to a mechanics show page
+      # I see a form to add a ride to their workload
+      # When I fill in that field with an id of an existing ride and hit submit
+      # I’m taken back to that mechanic's show page
+      # And I see the name of that newly added ride on this mechanics show page
+
+      it 'has a form to add a ride' do
+        expect(page).to_not have_content(brain_wagon.name)
+
+        fill_in "Ride ID", with: brain_wagon.id
+        click_on "Submit"
+
+        expect(current_path).to eq("/mechanics/#{garth.id}")
+        expect(page).to have_content(brain_wagon.name)
       end
     end
   end
